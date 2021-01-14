@@ -1,6 +1,7 @@
 package arraysandstrings
 
 import (
+	"fmt"
 	"math"
 	"strings"
 )
@@ -123,4 +124,22 @@ func OneAway(str1, str2 string) bool {
 		j++
 	}
 	return true
+}
+
+// StringCompression returns compressed string aaabbc turns into a3b2c
+func StringCompression(input string) string {
+	var str = []rune(input)
+	var next rune
+	var count int
+	for i := 0; i < len(str); i++ {
+		curr := str[i]
+		if i+1 < len(str) {
+			next = str[i+1]
+			if next == curr {
+				fmt.Println("Samesies: %v, %v", curr, next)
+				count++
+			}
+		}
+	}
+	return input
 }
