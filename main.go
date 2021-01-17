@@ -14,7 +14,7 @@ func main() {
 	permPalindrome := "race car"
 	string3 := "pas"
 	string4 := "pale"
-	stringCompression := "aaaabb"
+	stringCompression := "aaaabbccc"
 	/* Arrays and Strings coding problems */
 	fmt.Printf("Q: 1.1 - Input: %v - IsUnique: %v \n", stringData, arraysandstrings.IsUnique(stringData))
 	fmt.Printf("Q: 1.2 - Input: %v, %v - isPermutation: %v \n", string1, string2, arraysandstrings.CheckPermutation(string1, string2))

@@ -1,6 +1,8 @@
 package arraysandstrings
 
 import (
+	"bytes"
+	"encoding/binary"
 	"fmt"
 	"math"
 	"strings"
@@ -129,17 +131,37 @@ func OneAway(str1, str2 string) bool {
 // StringCompression returns compressed string aaabbc turns into a3b2c
 func StringCompression(input string) string {
 	var str = []rune(input)
-	var next rune
-	var count int
-	for i := 0; i < len(str); i++ {
-		curr := str[i]
-		if i+1 < len(str) {
-			next = str[i+1]
-			if next == curr {
-				fmt.Println("Samesies: %v, %v", curr, next)
-				count++
+	fmt.Println(str)
+	// out := make([]rune, len(str))
+	for i := len(input) - 1; i > 0; i-- {
+		// curr := str[i]
+		// prev := str[i-1]
+		count := 1
+		for j := i - 1; str[j] == str[i] && j >= 0; j-- {
+			count++
+			if j == 0 {
+				break
 			}
 		}
+		if count > 1 {
+			buf := new(bytes.Buffer)
+			_ = binary.Write(buf, binary.LittleEndian, count)
+			// str[i-count+2] = buf.Bytes()
+			var b = []rune{rune(count)}
+			str = append(str[:i-count+2], append(b, str[i+1:]...)...)
+			fmt.Printf("str: %v, b: %v, index: %v \n", str, b, i-count+2)
+			// str = append(str[:i+1], append(b, str[i+count:]...)...)
+
+		}
+		i = i - count + 1
 	}
-	return input
+	var sb strings.Builder
+	for _, v := range str {
+		if v == 4 {
+			sb.Write([]byte{byte(v)})
+		}
+	}
+	fmt.Println(str)
+	// s1 := string(sb.String())
+	return sb.String()
 }
